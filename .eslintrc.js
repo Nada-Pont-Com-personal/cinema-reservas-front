@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
   env: {
     browser: true,
@@ -7,6 +8,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier",
   ],
   overrides: [],
   parser: "@typescript-eslint/parser",
@@ -14,12 +17,15 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  settings: {
+    "import/resolver": {
+      node: {
+        paths: ["src"],
+      },
+    },
+  },
+  plugins: ["react", "@typescript-eslint", "prettier"],
   rules: {
-    indent: ["error", 4],
-    "react-in-jsx-scope": false,
-    "linebreak-style": ["error", "unix"],
-    quotes: ["error", "single"],
-    semi: ["error", "always"],
+    "react/react-in-jsx-scope": 0,
   },
 };
