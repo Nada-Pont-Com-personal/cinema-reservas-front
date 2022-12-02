@@ -1,0 +1,17 @@
+
+html,body,#root{
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.rounded{
+  border-radius: 10px !important;
+}
+
+
+@for $i from 1 through 9 {
+  .w-#{$i}0{
+    width: 10% * $i !important;
+  }
+}
