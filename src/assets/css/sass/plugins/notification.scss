@@ -1,0 +1,273 @@
+@use "../temas" as *;
+@use "../01_mixins" as *;
+@use "../02_variables" as *;
+
+@include temas using ($map) {
+  .notification {
+    border-radius: $border-radius;
+    @include depth(1, $map);
+    padding: 25px 25px 25px 25px;
+  }
+
+  .notification:before {
+    content: "";
+    display: none;
+  }
+
+  .notification-primary {
+    color: map-get($map, theme-color-1);
+    background-color: map-get($map, foreground-color);
+    border: 1px solid map-get($map, theme-color-1);
+    opacity: 1;
+
+    .notification-message {
+      .title {
+        color: map-get($map, theme-color-1);
+      }
+
+      .message {
+        color: map-get($map, primary-color);
+      }
+    }
+
+    &.filled {
+      color: map-get($map, foreground-color);
+      background-color: map-get($map, theme-color-1);
+
+      .notification-message {
+        .title {
+          color: map-get($map, foreground-color);
+        }
+
+        .message {
+          color: map-get($map, foreground-color);
+        }
+      }
+    }
+  }
+
+  .notification-secondary {
+    color: map-get($map, theme-color-2);
+    background-color: map-get($map, foreground-color);
+    border: 1px solid map-get($map, theme-color-2);
+    opacity: 1;
+
+    .notification-message {
+      .title {
+        color: map-get($map, theme-color-2);
+      }
+
+      .message {
+        color: map-get($map, secondary-color);
+      }
+    }
+
+    &.filled {
+      color: map-get($map, foreground-color);
+      background-color: map-get($map, theme-color-2);
+
+      .notification-message {
+        .title {
+          color: map-get($map, foreground-color);
+        }
+
+        .message {
+          color: map-get($map, foreground-color);
+        }
+      }
+    }
+  }
+
+  .notification-info {
+    color: $info-color;
+    background-color: map-get($map, foreground-color);
+    border: 1px solid $info-color;
+    opacity: 1;
+
+    .notification-message {
+      .title {
+        color: $info-color;
+      }
+
+      .message {
+        color: map-get($map, secondary-color);
+      }
+    }
+
+    &.filled {
+      color: map-get($map, foreground-color);
+      background-color: $info-color;
+
+      .notification-message {
+        .title {
+          color: map-get($map, foreground-color);
+        }
+
+        .message {
+          color: map-get($map, foreground-color);
+        }
+      }
+    }
+  }
+
+  .notification-success {
+    color: $system-color;
+    background-color: map-get($map, foreground-color);
+    border: 1px solid $system-color;
+    opacity: 1;
+
+    .notification-message {
+      .title {
+        color: $system-color;
+      }
+
+      .message {
+        color: map-get($map, secondary-color);
+      }
+    }
+
+    &.filled {
+      color: map-get($map, foreground-color);
+      background-color: $system-color;
+
+      .notification-message {
+        .title {
+          color: map-get($map, foreground-color);
+        }
+
+        .message {
+          color: map-get($map, foreground-color);
+        }
+      }
+    }
+  }
+
+  .notification-warning {
+    color: $warning-color;
+    background-color: map-get($map, foreground-color);
+    border: 1px solid $warning-color;
+    opacity: 1;
+
+    .notification-message {
+      .title {
+        color: $warning-color;
+      }
+
+      .message {
+        color: map-get($map, secondary-color);
+      }
+    }
+
+    &.filled {
+      color: map-get($map, foreground-color);
+      background-color: $warning-color;
+
+      .notification-message {
+        .title {
+          color: map-get($map, foreground-color);
+        }
+
+        .message {
+          color: map-get($map, foreground-color);
+        }
+      }
+    }
+  }
+
+  .notification-error {
+    color: $error-color;
+    background-color: map-get($map, foreground-color);
+    border: 1px solid $error-color;
+    opacity: 1;
+
+    .notification-message {
+      .title {
+        color: $error-color;
+      }
+
+      .message {
+        color: map-get($map, secondary-color);
+      }
+    }
+
+    &.filled {
+      color: map-get($map, foreground-color);
+      background-color: $error-color;
+
+      .notification-message {
+        .title {
+          color: map-get($map, foreground-color);
+        }
+
+        .message {
+          color: map-get($map, foreground-color);
+        }
+      }
+    }
+  }
+
+  .notification-container {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999999;
+    width: 320px;
+    padding: 0px 15px;
+    max-height: calc(100% - 30px);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .notification {
+    box-sizing: border-box;
+    padding: 15px 15px 15px 58px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 1em;
+    line-height: 1.2em;
+    position: relative;
+    opacity: 0.9;
+    margin-top: 15px;
+  }
+
+  .notification .title {
+    font-size: 1em;
+    line-height: 1.2em;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+  }
+
+  .notification:hover,
+  .notification:focus {
+    opacity: 1;
+  }
+
+  .notification-enter {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  .notification-enter.notification-enter-active {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.4s;
+  }
+
+  .notification-leave {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .notification-leave.notification-leave-active {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: all 0.4s;
+  }
+
+  .rounded {
+    .notification {
+      border-radius: map-get($map, border-radius-rounded);
+    }
+  }
+}

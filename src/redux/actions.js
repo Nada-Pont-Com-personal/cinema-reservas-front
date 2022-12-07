@@ -1,1 +1,1 @@
-export { changeLocale } from "./settings/actions";
+export { login, logout } from "./settings/actions";

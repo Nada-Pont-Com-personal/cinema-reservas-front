@@ -1,11 +1,15 @@
-import { setCurrentLanguage } from 'helpers/Utils';
-import { CHANGE_LOCALE } from '../constants';
+import { LOGIN, LOGOUT } from "../constants";
 
-// eslint-disable-next-line import/prefer-default-export
-export const changeLocale = (locale) => {
-  setCurrentLanguage(locale);
+export const login = (locale) => {
   return {
-    type: CHANGE_LOCALE,
+    type: LOGOUT,
+    payload: locale,
+  };
+};
+
+export const logout = (locale) => {
+  return {
+    type: LOGIN,
     payload: locale,
   };
 };

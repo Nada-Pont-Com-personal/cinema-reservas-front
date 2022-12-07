@@ -16,7 +16,7 @@ export default function Error() {
           </Col>
           <Col xs="2" className="d-flex position-absolute">
             <Button
-              color="info"
+              color="primary"
               onClick={() => {
                 navegate("/");
               }}

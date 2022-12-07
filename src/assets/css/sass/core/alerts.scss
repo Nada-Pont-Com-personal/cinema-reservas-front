@@ -1,0 +1,69 @@
+@use "../temas" as *;
+@use "../02_variables" as *;
+
+@include temas using ($map) {
+  .alert {
+    border-radius: 0;
+  }
+
+  .alert-primary {
+    color: map-get($map, theme-color-1);
+    background-color: rgba(map-get($map, theme-color-1), 0.2);
+    border-color: rgba(map-get($map, theme-color-1), 0.1);
+  }
+
+  .alert-secondary {
+    color: map-get($map, theme-color-2);
+    background-color: rgba(map-get($map, theme-color-2), 0.2);
+    border-color: rgba(map-get($map, theme-color-2), 0.1);
+  }
+
+  .alert-success {
+    color: $system-color;
+    background-color: rgba($system-color, 0.2);
+    border-color: rgba($system-color, 0.1);
+  }
+
+  .alert-info {
+    color: $info-color;
+    background-color: rgba($info-color, 0.2);
+    border-color: rgba($info-color, 0.1);
+  }
+
+  .alert-warning {
+    color: $warning-color;
+    background-color: rgba($warning-color, 0.2);
+    border-color: rgba($warning-color, 0.1);
+  }
+
+  .alert-danger {
+    color: $error-color;
+    background-color: rgba($error-color, 0.2);
+    border-color: rgba($error-color, 0.1);
+  }
+
+  .alert-light {
+    color: map-get($map, light-btn-background);
+    background-color: rgba(map-get($map, light-btn-background), 0.2);
+    border-color: rgba(map-get($map, light-btn-background), 0.1);
+  }
+
+  .alert-dark {
+    color: map-get($map, dark-btn-background);
+    background-color: rgba(map-get($map, dark-btn-background), 0.2);
+    border-color: rgba(map-get($map, dark-btn-background), 0.1);
+  }
+
+  .alert-dismissible .close {
+    text-shadow: initial;
+  }
+
+  .alert *[data-notify="title"] {
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  div[data-notify="container"] {
+    padding: 18px;
+  }
+}

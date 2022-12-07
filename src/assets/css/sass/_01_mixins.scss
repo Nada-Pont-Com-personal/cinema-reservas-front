@@ -1,0 +1,135 @@
+@use "./temas" as *;
+
+// Mixin to prefix several properties at once
+// @author Hugo Giraudel
+// @param {Map} $declarations - Declarations to prefix
+// @param {List} $prefixes (()) - List of prefixes to print
+@mixin prefix($declarations, $prefixes: ()) {
+  @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+  }
+}
+
+// Gives a card depth effect.
+// @param {Number} $depth - depth level (between 1 and 5)
+// @link http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality Google Design
+// @requires {function} top-shadow
+// @requires {function} bottom-shadow
+@mixin depth($depth, $map) {
+  @if $depth < 1 {
+    box-shadow: none;
+  } @else if $depth > 5 {
+    @warn "Invalid $depth `#{$depth}` for mixin `card`.";
+  } @else {
+    // @include temasMixin using ($map) {
+    box-shadow: bottom-shadow(
+        $depth,
+        map-get($map, shadow-offsets-top),
+        map-get($map, shadow-opacities-top),
+        map-get($map, shadow-blurs-top)
+      ),
+      top-shadow(
+        $depth,
+        map-get($map, shadow-offsets-bottom),
+        map-get($map, shadow-opacities-bottom),
+        map-get($map, shadow-blurs-bottom)
+      );
+  }
+  // }
+}
+
+// Computes a top-shadow for a card effect.
+// @param {Number} $depth - depth level
+// @return {List}
+
+@function top-shadow($depth, $shadow-offsets-top, $shadow-opacities-top, $shadow-blurs-top) {
+  $primary-offset: nth($shadow-offsets-top, $depth) * 1px;
+  $blur: nth($shadow-blurs-top, $depth) * 4px;
+  $color: rgba(black, nth($shadow-opacities-top, $depth));
+
+  @return 0 $primary-offset $blur $color;
+}
+
+// Computes a bottom-shadow for a card effect.
+// @param {Number} $depth - depth level
+// @return {List}
+@function bottom-shadow($depth, $shadow-offsets-bottom, $shadow-opacities-bottom, $shadow-blurs-bottom) {
+  $primary-offset: nth($shadow-offsets-bottom, $depth) * 1px;
+  $blur: nth($shadow-blurs-bottom, $depth) * 5px;
+  $color: rgba(black, nth($shadow-opacities-bottom, $depth));
+  @return 0 $primary-offset $blur $color;
+}
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+//Responsive Breakpoints
+
+$breakpoints: (
+  xxs: 420px,
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+  xl: 1440px,
+);
+
+@mixin respond-above($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint); // Write the media query.
+    @media (min-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn "Invalid breakpoint: #{$breakpoint}.";
+  }
+}
+
+@mixin respond-below($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint); // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn "Invalid breakpoint: #{$breakpoint}.";
+  }
+}
+
+@function encodecolor($string) {
+  @if type-of($string) == "color" {
+    $hex: str-slice(ie-hex-str($string), 4);
+    $string: unquote("#{$hex}");
+  }
+  $string: "%23" + $string;
+  @return $string;
+}
+
+// Gives a class background-color gradient by lightness decrement.
+// @param {Number} $numero - (1 and ANY)
+// @param {String} $class - class of background-color
+// @param {Color} $color - (#ffffff and #000000)
+// @requires {function} change-color
+@mixin cores($numero, $class, $color, $direcao-incremento) {
+  @for $i from 0 to $numero {
+    #{$class}#{$i} {
+      background-color: adjust-color($color, $lightness: ($i * $direcao-incremento));
+    }
+  }
+}

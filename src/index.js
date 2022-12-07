@@ -6,6 +6,7 @@ import configureStore from "redux/store";
 import reportWebVitals from "./reportWebVitals";
 
 import "./assets/css/sass/index.scss";
+import "./assets/css/sass/main.scss";
 import "./assets/css/vendor/bootstrap.min.css";
 
 const App = React.lazy(() => import(/* webpackChunkName: "App" */ "./App"));
