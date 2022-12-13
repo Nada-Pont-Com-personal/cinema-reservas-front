@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 
-axios.defaults.baseURL = `http://localhost:5001`;
+axios.defaults.baseURL = `http://localhost:5002`;
 axios.defaults.withCredentials = true;
 axios.defaults.transformRequest = [
   (data) => {

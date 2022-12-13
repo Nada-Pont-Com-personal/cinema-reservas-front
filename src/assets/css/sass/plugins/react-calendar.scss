@@ -1,0 +1,32 @@
+@use "../temas" as *;
+@use "../02_variables" as *;
+
+@include temas using ($map) {
+  .react-calendar {
+    border-color: map-get($map, foreground-color);
+    background-color: map-get($map, background-color);
+
+    button {
+      color: map-get($map, button-text-color);
+    }
+
+    .react-calendar__tile--now {
+      background-color: map-get($map, theme-color-2);
+
+      &:enabled,
+      &:hover,
+      &:focus {
+        background-color: map-get($map, theme-color-2);
+      }
+    }
+
+    .react-calendar__tile--active {
+      background-color: map-get($map, theme-color-1);
+      &:enabled,
+      &:hover,
+      &:focus {
+        background-color: map-get($map, theme-color-1);
+      }
+    }
+  }
+}
